@@ -18,5 +18,7 @@
     "activeTab",
     "tabs",
     "https://github.com/"
-  ]
+  ],
+  "offline_enabled": true,
+  "homepage_url": "https://github.com/lite3/github-download-button/"
 }
