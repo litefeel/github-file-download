@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "Github download button",
-  "description": "Add a Github download button",
+  "name": "Github file download",
+  "description": "Add a Github download button for download file",
   "version": "1.0",
 
   "icons": {
@@ -20,5 +20,5 @@
     "https://github.com/"
   ],
   "offline_enabled": true,
-  "homepage_url": "https://github.com/lite3/github-download-button/"
+  "homepage_url": "https://github.com/lite3/github-file-download/"
 }

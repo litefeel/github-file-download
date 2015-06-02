@@ -11,7 +11,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
   }
 
   chrome.tabs.executeScript(tabId, {
-    code  : 'if (gdb_onLocalChange) gdb_onLocalChange();',
+    code  : 'if (gfd_onLocalChange) gfd_onLocalChange();',
     runAt : 'document_start'
   }, function(res) {
     // if (chrome.runtime.lastError) {
