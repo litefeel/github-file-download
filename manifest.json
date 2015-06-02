@@ -20,5 +20,6 @@
     "https://github.com/"
   ],
   "offline_enabled": true,
-  "homepage_url": "https://github.com/lite3/github-file-download/"
+  "homepage_url": "https://github.com/lite3/github-file-download/",
+  "update_url": "https://github.com/lite3/github-file-download/raw/master/updateInfo.xml"
 }
