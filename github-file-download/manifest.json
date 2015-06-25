@@ -2,8 +2,8 @@
   "manifest_version": 2,
 
   "name": "Github file download",
-  "description": "Add a Github download button for download file",
-  "version": "1.0",
+  "description": "Add a download button for Github and gist",
+  "version": "1.1",
 
   "icons": {
     "16": "icon16.png",
@@ -21,6 +21,5 @@
     "https://gist.github.com/"
   ],
   "offline_enabled": true,
-  "homepage_url": "https://github.com/lite3/github-file-download/",
-  "update_url": "https://github.com/lite3/github-file-download/raw/master/updateInfo.xml"
+  "homepage_url": "https://github.com/lite3/github-file-download/"
 }
