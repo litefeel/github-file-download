@@ -17,7 +17,8 @@
   "permissions": [
     "activeTab",
     "tabs",
-    "https://github.com/"
+    "https://github.com/",
+    "https://gist.github.com/"
   ],
   "offline_enabled": true,
   "homepage_url": "https://github.com/lite3/github-file-download/",

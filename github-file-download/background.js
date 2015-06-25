@@ -5,13 +5,16 @@
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
   console.log("changeInfo.status=%s", changeInfo.status);
   if (changeInfo.status !== 'loading') return;
-  if (!tab.url.match(/https:\/\/github.com\/.+?\/.+?\/blob\/.+/)) {
-    console.log("can not match github");
+
+  // https://github.com/username/reponame/blob/xxxx
+  // https://gist.github.com/username/xxxx
+  if (!tab.url.match(/https:\/\/github\.com\/[^\/]+\/[^\/]+\/blob\/.+/) &&
+      !tab.url.match(/https:\/\/gist\.github\.com\/[^\/]+\/.+/)) {
     return;
   }
 
   chrome.tabs.executeScript(tabId, {
-    code  : 'if (gfd_onLocalChange) gfd_onLocalChange();',
+    code  : 'if (gfd_onLocalChange){gfd_onLocalChange();};',
     runAt : 'document_start'
   }, function(res) {
     // if (chrome.runtime.lastError) {
