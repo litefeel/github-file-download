@@ -16,8 +16,8 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
   }
 
   chrome.tabs.executeScript(tabId, {
-    code  : 'if (gfd_onLocalChange){gfd_onLocalChange();};',
-    runAt : 'document_start'
+    code  : 'gfd_onLocalChange();',
+    runAt : 'document_end'
   }, function(res) {
     // if (chrome.runtime.lastError) {
     //   console.log("lastError=%", chrome.runtime.lastError.message)
@@ -46,7 +46,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 
     function inject(fn) {
       return function(file, cb) {
-        chrome.tabs[fn](tabId, { file: file, runAt: 'document_start' }, cb)
+        chrome.tabs[fn](tabId, { file: file, runAt: 'document_end' }, cb)
       }
     }
   })
