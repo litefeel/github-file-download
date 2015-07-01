@@ -8,9 +8,10 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 
   // https://github.com/username/reponame
   // https://github.com/username/reponame/tree/xxxx
+  // https://github.com/username/reponame/find/xxxx
   // https://github.com/username/reponame/blob/xxxx
   // https://gist.github.com/username/xxxx
-  if (!tab.url.match(/https:\/\/github\.com\/[^\/]+\/[^\/]+(\/?$|\/blob\/.+|\/tree\/.+)/) &&
+  if (!tab.url.match(/https:\/\/github\.com\/[^\/]+\/[^\/]+(\/?$|\/blob\/.+|\/tree\/.+|\/find\/.+)/) &&
       !tab.url.match(/https:\/\/gist\.github\.com\/[^\/]+\/.+/)) {
     return;
   }

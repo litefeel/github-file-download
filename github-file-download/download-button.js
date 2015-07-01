@@ -1,10 +1,13 @@
-// is blod page
-function gfd_isBlob() {
-    return window.location.href.match(/https:\/\/github\.com\/[^\/]+\/[^\/]+\/blob\/.+/);
+
+function gfd_getGithubType() {
+    var regExp = /https:\/\/github\.com\/[^\/]+\/[^\/]+(\/?$|\/(.+?)\/.+)/;
+    var result = regExp.exec(window.location.href);
+    var type = null;
+    if (result) return result[2] ? result[2] : "tree";
+    return null;
 }
 
-
-function gfd_urlpath(url) {
+function gfd_pathname(url) {
     var idx = url.indexOf('/', 9);
     return url.substring(idx);
 }
@@ -17,7 +20,7 @@ function gdf_insertLinkForTree() {
             callHandler = setTimeout(insertLink, 1000);
             return;
         }
-        var localtionPath = gfd_urlpath(window.location.href);
+        var localtionPath = gfd_pathname(window.location.href);
         localtionPath = localtionPath.replace("tree", "blob");
         arr.each(function(idx,elem){
             elem = $(elem);
@@ -42,6 +45,46 @@ function gdf_insertLinkForTree() {
     };
     callHandler = setTimeout(insertLink, 1000);
     insertLink();
+}
+
+function gfd_insertLinkForFind() {
+    var callHandler = 0;
+    var insertLink = function() {
+        var arr =  $(".js-tree-finder-results .octicon-file-text");
+        if (arr.length == 0) {
+            callHandler = setTimeout(insertLink, 1000);
+            return;
+        }
+        arr.each(function(idx,elem){
+            elem = $(elem);
+            var link = elem.parent();
+            var url = null;
+            if (link.is('a')) {
+                url = link.parent().next().find("a").attr("href");
+            } else {
+                url = link.next().find("a").attr("href");
+                link = null;
+            }
+            
+            url = url.replace("blob", "raw");
+            var filename = url.substring(url.lastIndexOf('/')+1);
+            if (link) {
+                link.attr("href", url);
+            } else {
+                var html = '<a href="'+url+'" download="'+filename+'" data-skip-pjax=""></a>';
+                $(html).insertBefore(elem);
+                elem.appendTo(elem.prev());
+            }
+        });
+    };
+    callHandler = setTimeout(insertLink, 1000);
+    insertLink();
+
+    // on query input input value change
+    var inputText = $("input[name='query']");
+    inputText.on("input", function(){
+        setTimeout(insertLink, 1000);
+    });
 }
 
 function gfd_insertLinkForBlob() {
@@ -71,10 +114,10 @@ function gfd_insertLinkForGist() {
 
 function gfd_onLocalChange() {
     if (window.location.hostname == "github.com") {
-        if (gfd_isBlob()) {
-            gfd_insertLinkForBlob();
-        } else {
-            gdf_insertLinkForTree();
+        switch(gfd_getGithubType()) {
+            case "tree": gdf_insertLinkForTree(); break;
+            case "blob": gfd_insertLinkForBlob(); break;
+            case "find": gfd_insertLinkForFind(); break;
         }
     } else if (window.location.hostname == "gist.github.com") {
         gfd_insertLinkForGist();
