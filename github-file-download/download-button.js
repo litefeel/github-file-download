@@ -12,12 +12,15 @@ function gfd_pathname(url) {
     return url.substring(idx);
 }
 
+var gdf_callHandler = 0;
+
 function gdf_insertLinkForTree() {
-    var callHandler = 0;
+    clearTimeout(gdf_callHandler);
+    gdf_callHandler = 0;
     var insertLink = function() {
         var arr =  $(".octicon-file-text");
         if (arr.length == 0) {
-            callHandler = setTimeout(insertLink, 1000);
+            gdf_callHandler = setTimeout(insertLink, 1000);
             return;
         }
         var localtionPath = gfd_pathname(window.location.href);
@@ -26,11 +29,11 @@ function gdf_insertLinkForTree() {
             elem = $(elem);
             var url = "";
             if (elem.hasClass("gfdclass")){
-                clearTimeout(callHandler);
-                callHandler = 0;
+                clearTimeout(gdf_callHandler);
+                gdf_callHandler = 0;
                 url = elem.parent().parent().parent().children(".content").find("a").attr("href");
                 if (url.indexOf(localtionPath) !== 0) {
-                    callHandler = setTimeout(insertLink, 1000);
+                    gdf_callHandler = setTimeout(insertLink, 1000);
                 }
                 return false;
             }
@@ -43,16 +46,16 @@ function gdf_insertLinkForTree() {
             elem.appendTo(elem.prev());
         });
     };
-    callHandler = setTimeout(insertLink, 1000);
+    gdf_callHandler = setTimeout(insertLink, 1000);
     insertLink();
 }
 
 function gfd_insertLinkForFind() {
-    var callHandler = 0;
+    clearTimeout(gdf_callHandler);
     var insertLink = function() {
+        gdf_callHandler = setTimeout(insertLink);
         var arr =  $(".js-tree-finder-results .octicon-file-text");
         if (arr.length == 0) {
-            callHandler = setTimeout(insertLink, 1000);
             return;
         }
         arr.each(function(idx,elem){
@@ -77,14 +80,7 @@ function gfd_insertLinkForFind() {
             }
         });
     };
-    callHandler = setTimeout(insertLink, 1000);
     insertLink();
-
-    // on query input input value change
-    var inputText = $("input[name='query']");
-    inputText.on("input", function(){
-        setTimeout(insertLink, 1000);
-    });
 }
 
 function gfd_insertLinkForBlob() {

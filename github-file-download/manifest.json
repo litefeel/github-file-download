@@ -3,7 +3,7 @@
 
   "name": "Github file download",
   "description": "Add a download button for Github and gist",
-  "version": "1.3",
+  "version": "1.4",
 
   "icons": {
     "16": "icon16.png",
@@ -11,7 +11,7 @@
     "128": "icon128.png"
   },
   "background": {
-    "scripts": ["jquery.min.js", "background.js"],
+    "scripts": ["background.js"],
     "persistent": false
   },
   "permissions": [
@@ -19,6 +19,17 @@
     "tabs",
     "https://github.com/",
     "https://gist.github.com/"
+  ],
+  "content_scripts": [    
+    {
+      "matches": [
+        "https://github.com/*",
+        "https://gist.github.com/*"
+      ],
+      "js": ["jquery.min.js","download-button.js"],
+      "css": ["style.css"],
+      "run_at": "document_end"
+    }
   ],
   "offline_enabled": true,
   "homepage_url": "https://github.com/lite3/github-file-download/"

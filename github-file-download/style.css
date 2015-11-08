@@ -1,0 +1,8 @@
+span.octicon.octicon-file-text:before {
+    /*for download icon*/
+    content: '\f00b';
+}
+
+.tree-browser a .octicon-file-text {
+    color: inherit;
+}
