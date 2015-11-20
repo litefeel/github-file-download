@@ -96,15 +96,21 @@ function gfd_insertLinkForBlob() {
 }
 
 function gfd_insertLinkForGist() {
-    if ($("#ext-file-download").length > 0) return;
-
-    var rawurl = $(".raw-url")
-    if (rawurl.length == 0) return;
-
-    var url = rawurl.attr('href')
-    var filename = url.substring(url.lastIndexOf('/')+1);
-    var html = '<a href="'+url+'" id="ext-file-download" download="'+filename+'" data-skip-pjax="" class="minibutton">Download</a>';
-    $(html).insertBefore(rawurl);
+    var arr = $(".file-actions a.btn");
+    arr.each(function(idx,elem){
+        elem = $(elem);
+        if (elem.hasClass("gfdclass")){
+            return false;
+        }
+        elem.addClass("gfdclass");
+        var url = elem.attr("href");
+        var filename = url.substring(url.lastIndexOf('/')+1);
+        var btnHtml = '<a href="'+url+'" download="'+filename+'" data-skip-pjax="" class="btn btn-sm">Download</a>';
+        var groupHtml = '<div class="btn-group" />';
+        $(groupHtml).insertBefore(elem);
+        elem.appendTo(elem.prev());
+        $(btnHtml).insertBefore(elem);
+    });
 }
 
 

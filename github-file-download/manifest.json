@@ -3,7 +3,7 @@
 
   "name": "Github file download",
   "description": "Add a download button for Github and gist",
-  "version": "1.4",
+  "version": "1.5",
 
   "icons": {
     "16": "icon16.png",
